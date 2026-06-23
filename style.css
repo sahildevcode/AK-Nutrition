@@ -1,0 +1,98 @@
+/* Layout Global Configurations */
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    letter-spacing: -0.02em;
+}
+
+/* Kinetic Brand Headings Typography */
+h1, h2, h3, .brand-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+}
+
+/* System Controls Text Styles mapping */
+button, .nav-link, .mobile-nav-link, input, label, textarea {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Razor-sharp Red Track Custom Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+::-webkit-scrollbar-thumb {
+    background: #ff0000;
+    border-radius: 10px;
+}
+
+/* Anchor Link Underline Hover Vectors */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -4px;
+    left: 0;
+    background-color: #ff0000;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+.nav-link:hover {
+    color: #ffffff;
+}
+
+/* Stealth Premium E-Comm Card System Panels */
+.glow-effect {
+    background: #040404;
+    border: 1px solid #121212;
+    transition: box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.glow-effect:hover {
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+    transform: translateY(-8px);
+}
+
+.prod-img-container {
+    background: #010101;
+    position: relative;
+    overflow: hidden;
+}
+
+.prod-img-container img {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-effect:hover .prod-img-container img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+/* Native Slider Elements Override styling */
+input[type="range"]::-webkit-slider-thumb {
+    background: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    border-radius: 50%;
+}
+
+#policy-content-box h2 { font-family: 'Space Grotesk', sans-serif; color: #fff; font-weight: 700; }
+#policy-content-box p, #policy-content-box li { font-family: 'Space Grotesk', sans-serif; line-height: 1.6; }
+.policy-tab-btn { transition: all 0.3s ease; }

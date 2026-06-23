@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK NUTRITION | Premium Stealth Supplements</title>
+    <!-- Tailwind CSS Utility Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons Vector Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts Injections: Syne & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS Stylesheet Connection -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR LAYER -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-zinc-900 px-6 py-4 flex justify-between items-center">
+        <!-- Brand identity logo -->
+        <a href="#home" class="brand-logo text-2xl font-black tracking-wider text-white">AK <span class="text-red-600">NUTRITION</span></a>
+        
+        <!-- DESKTOP ROUTING LINKS (Hidden on viewport bounds) -->
+        <div class="hidden md:flex space-x-8 font-semibold uppercase tracking-wide text-xs">
+            <a href="#home" class="nav-link text-zinc-400">Home</a>
+            <a href="#shop" class="nav-link text-zinc-400">Shop</a>
+            <a href="#best-sellers" class="nav-link text-zinc-400">Best Sellers</a>
+            <a href="#about" class="nav-link text-zinc-400">About</a>
+            <a href="#contact" class="nav-link text-zinc-400">Contact</a>
+            <a href="javascript:void(0)" id="policy-nav-btn" class="nav-link text-zinc-400">Policies</a>
+        </div>
+
+        <!-- DESKTOP CART BASKET -->
+        <div class="hidden md:block">
+            <button id="cart-btn" class="relative text-xl text-white hover:text-red-500 transition-colors">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+        </div>
+
+        <!-- MOBILE RESPONSIVE HAMBURGER TOGGLE -->
+        <button id="mobile-menu-toggle" class="block md:hidden text-white text-xl focus:outline-none">
+            <i class="fas fa-bars-staggered"></i>
+        </button>
+    </nav>
+
+    <!-- MOBILE SIDEBAR PANEL SLIDEOUT -->
+    <div id="mobile-sidebar" class="fixed top-0 right-0 h-full w-72 bg-black border-l border-zinc-900 z-50 p-8 translate-x-full transition-transform duration-300 shadow-2xl flex flex-col justify-between md:hidden">
+        <div class="flex justify-end">
+            <button id="close-mobile-menu" class="text-2xl text-zinc-500 hover:text-red-500">&times;</button>
+        </div>
+        <div class="flex flex-col space-y-6 text-center text-md uppercase font-bold tracking-wider my-auto">
+            <a href="#home" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">Home</a>
+            <a href="#shop" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">Shop</a>
+            <a href="#best-sellers" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">Best Sellers</a>
+            <a href="#about" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">About</a>
+            <a href="#contact" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">Contact</a>
+            <a href="javascript:void(0)" id="policy-mobile-btn" class="mobile-nav-link text-zinc-400 hover:text-white transition-colors">Policies</a>
+            
+            <button id="cart-btn-mobile" class="mobile-nav-link text-red-500 hover:text-white flex items-center justify-center gap-2 pt-4 border-t border-zinc-900 w-full">
+                <i class="fas fa-shopping-cart"></i> Cart 
+                <span id="cart-count-mobile" class="bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+        </div>
+        <div class="text-center text-[10px] text-zinc-700 uppercase tracking-widest">// AK Nutrition Core</div>
+    </div>
+
+    <!-- SIDE CART CONTROL SLIDEOUT PANEL WITH INTEGRATED CHECKOUT FLOW -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-black border-l border-zinc-900 z-50 p-6 translate-x-full transition-transform duration-300 shadow-2xl flex flex-col justify-between">
+        <div class="flex justify-between items-center border-b border-zinc-900 pb-4 mb-4">
+            <h3 id="cart-title-text" class="text-lg font-bold uppercase tracking-wider">Your Cart</h3>
+            <button id="close-cart" class="text-xl text-zinc-500 hover:text-red-500">&times;</button>
+        </div>
+
+        <!-- STAGE 1: SHOPPING BASKET MATRIX VIEW -->
+        <div id="cart-main-screen" class="flex-1 flex flex-col justify-between">
+            <div id="cart-items" class="space-y-4 max-h-[65%] overflow-y-auto pr-2">
+                <p class="text-zinc-600 text-center py-4 text-sm">Your cart is empty.</p>
+            </div>
+            <div class="border-t border-zinc-900 pt-4 mt-auto">
+                <div class="flex justify-between font-bold text-md mb-4">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-red-500">₹0</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-red-600 hover:bg-white text-white hover:text-black font-bold uppercase text-xs tracking-wider py-4 rounded transition-all duration-300">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- STAGE 2: CHECKOUT INTERACTION GATEWAY -->
+        <div id="cart-payment-screen" class="hidden flex-1 flex flex-col justify-between">
+            <div class="space-y-6">
+                <p class="text-xs text-zinc-500 uppercase tracking-wider">// Select Payment Method</p>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between border border-zinc-900 p-4 rounded bg-zinc-950/40 cursor-pointer hover:border-red-600 transition-colors">
+                        <span class="text-sm font-medium text-zinc-300"><i class="fa-solid fa-qrcode mr-2 text-red-500"></i> UPI (GPay/PhonePe)</span>
+                        <input type="radio" name="payment" value="upi" checked class="accent-red-600">
+                    </label>
+                    <label class="flex items-center justify-between border border-zinc-900 p-4 rounded bg-zinc-950/40 cursor-pointer hover:border-red-600 transition-colors">
+                        <span class="text-sm font-medium text-zinc-300"><i class="fa-solid fa-credit-card mr-2 text-red-500"></i> Credit / Debit Card</span>
+                        <input type="radio" name="payment" value="card" class="accent-red-600">
+                    </label>
+                    <label class="flex items-center justify-between border border-zinc-900 p-4 rounded bg-zinc-950/40 cursor-pointer hover:border-red-600 transition-colors">
+                        <span class="text-sm font-medium text-zinc-300"><i class="fa-solid fa-truck-ramp-box mr-2 text-red-500"></i> Cash On Delivery</span>
+                        <input type="radio" name="payment" value="cod" class="accent-red-600">
+                    </label>
+                </div>
+            </div>
+            <div class="border-t border-zinc-900 pt-4 mt-auto">
+                <div class="flex justify-between font-bold text-sm mb-4 text-zinc-400">
+                    <span>Final Payable:</span>
+                    <span id="payment-total" class="text-red-500 font-black text-md">₹0</span>
+                </div>
+                <div class="flex gap-2">
+                    <button id="back-to-cart-btn" class="w-1/3 border border-zinc-800 hover:border-red-600 text-zinc-400 hover:text-white font-bold uppercase text-[10px] tracking-wider py-4 rounded transition-all duration-300">Back</button>
+                    <button id="buy-now-btn" class="w-2/3 bg-red-600 hover:bg-white text-white hover:text-black font-bold uppercase text-xs tracking-wider py-4 rounded transition-all duration-300 shadow-lg shadow-red-600/20">Place Order (BUY)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HOME DEEP HERO BANNER -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6 relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,0,0.07)_0%,transparent_70%)]"></div>
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-8 items-center relative z-10">
+            <div id="hero-text">
+                <span class="text-red-600 font-bold tracking-widest text-xs block mb-2">// FUEL YOUR AMBITION</span>
+                <h1 class="text-4xl md:text-6xl font-black uppercase leading-none mb-6 text-white">UNLEASH THE <br><span class="text-red-600">BEAST</span> WITHIN</h1>
+                <p class="text-zinc-500 text-sm mb-8 max-w-sm leading-relaxed">Premium quality supplements engineered for elite athletes. No fillers, pure performance.</p>
+                <a href="#shop" class="bg-red-600 hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-wider px-8 py-4 rounded transition-all inline-block shadow-lg shadow-red-600/20">Shop Now</a>
+            </div>
+            <div id="hero-img" class="flex justify-center">
+                <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=600&auto=format&fit=crop" alt="Supplement Tub" class="w-72 md:w-80 rounded-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 2: CATALOG REVOLUTION STORE -->
+    <section id="shop" class="min-h-screen py-24 px-6 border-t border-zinc-950">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" id="shop-title">
+                <h2 class="text-3xl font-black uppercase tracking-wider text-white">Premium <span class="text-red-600">Store</span></h2>
+                <div class="w-16 h-[2px] bg-red-600 mx-auto mt-3"></div>
+            </div>
+
+            <!-- SEARCH CONTROL & FILTER LAYERING NODES -->
+            <div id="shop-filters" class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-12 bg-zinc-950/40 p-4 rounded-lg border border-zinc-900">
+                <div class="relative flex-1 max-w-md">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600"></i>
+                    <input type="text" id="search-input" placeholder="Search supplements..." class="w-full bg-black border border-zinc-900 rounded pl-11 pr-4 py-2.5 focus:outline-none focus:border-red-600 text-sm text-white">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-zinc-500 text-xs font-semibold">Max Price: <span id="price-val" class="text-red-500 font-bold">₹5000</span></span>
+                    <input type="range" id="price-range" min="1000" max="5000" value="5000" step="500" class="accent-red-600 bg-zinc-900 h-1.5 rounded-lg cursor-pointer w-40">
+                </div>
+            </div>
+
+            <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- PAGE 3: BEST SELLING FRONTLINERS -->
+    <section id="best-sellers" class="min-h-screen py-24 px-6 border-t border-zinc-950 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" id="bestseller-title">
+                <span class="text-red-600 font-bold tracking-widest text-xs block mb-2">// TOP DEMAND</span>
+                <h2 class="text-3xl font-black uppercase tracking-wider text-white">Best <span class="text-red-600">Sellers</span></h2>
+                <div class="w-16 h-[2px] bg-red-600 mx-auto mt-3"></div>
+            </div>
+            <div id="bestseller-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- PAGE 4: ABOUT ARCHITECTURE -->
+    <section id="about" class="min-h-screen py-24 px-6 border-t border-zinc-950">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="about-img opacity-0">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop" alt="Gym Interior" class="rounded-lg border border-zinc-900 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div class="about-text opacity-0">
+                <span class="text-red-600 font-bold tracking-widest text-xs block mb-2">// OUR LEGACY</span>
+                <h2 class="text-3xl font-black uppercase mb-6 text-white">WE DON'T COMPROMISE ON <span class="text-red-600">QUALITY</span></h2>
+                <p class="text-zinc-500 text-sm mb-6 leading-relaxed">Founded by fitness enthusiasts, AK NUTRITION delivers only lab-tested, scientifically backed supplements to help you smash your goals.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border border-zinc-900 p-4 rounded bg-zinc-950/20 stat-box">
+                        <h4 class="text-red-500 font-black text-xl">100%</h4>
+                        <p class="text-zinc-600 text-[10px] uppercase tracking-wider">Genuine Products</p>
+                    </div>
+                    <div class="border border-zinc-900 p-4 rounded bg-zinc-950/20 stat-box">
+                        <h4 class="text-red-500 font-black text-xl">50K+</h4>
+                        <p class="text-zinc-600 text-[10px] uppercase tracking-wider">Happy Athletes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 5: DUAL INTERACTIVE CONTACT MATRIX -->
+    <section id="contact" class="min-h-screen py-24 px-6 border-t border-zinc-950 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" id="contact-title">
+                <span class="text-red-600 font-bold tracking-widest text-xs block mb-2">// DIRECT CONNECT</span>
+                <h2 class="text-3xl font-black uppercase tracking-wider text-white">GET IN <span class="text-red-600">TOUCH</span></h2>
+                <div class="w-16 h-[2px] bg-red-600 mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <!-- FORM BLOCK -->
+                <div class="space-y-6" id="contact-left-zone">
+                    <h3 class="text-lg font-bold text-white uppercase tracking-wide border-l-2 border-red-600 pl-3">Drop Your Queries</h3>
+                    <form id="contact-form" class="space-y-6 bg-zinc-950/40 p-8 rounded-lg border border-zinc-900 opacity-0">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold tracking-wider text-zinc-500 mb-2">Full Name</label>
+                            <input type="text" required class="w-full bg-black border border-zinc-900 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-600 text-white transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold tracking-wider text-zinc-500 mb-2">Email Address</label>
+                            <input type="email" required class="w-full bg-black border border-zinc-900 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-600 text-white transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold tracking-wider text-zinc-500 mb-2">What are you looking for?</label>
+                            <textarea rows="4" required placeholder="Ask about stack selection, orders, etc..." class="w-full bg-black border border-zinc-900 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-600 text-white transition-colors"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 hover:bg-white text-white hover:text-black font-bold text-xs uppercase tracking-wider py-4 rounded transition-all duration-300">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- SELLER PROFILE HUB -->
+                <div class="space-y-8 opacity-0" id="contact-right-zone">
+                    <h3 class="text-lg font-bold text-white uppercase tracking-wide border-l-2 border-red-600 pl-3">Official HQ Hub</h3>
+                    <div class="space-y-4">
+                        <a href="https://wa.me/919999999999" target="_blank" class="flex items-center gap-4 border border-zinc-900 p-4 rounded bg-zinc-950/20 hover:border-emerald-500 transition-all duration-300 group">
+                            <div class="w-10 h-10 rounded bg-emerald-600/10 text-emerald-500 flex items-center justify-center text-lg group-hover:scale-110 transition-transform"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div>
+                                <h4 class="text-xs uppercase font-bold tracking-wider text-zinc-400">WhatsApp Support</h4>
+                                <p class="text-sm text-zinc-200 font-medium">+91 99999 99999</p>
+                            </div>
+                        </a>
+                        <a href="https://instagram.com/ak_nutrition" target="_blank" class="flex items-center gap-4 border border-zinc-900 p-4 rounded bg-zinc-950/20 hover:border-pink-500 transition-all duration-300 group">
+                            <div class="w-10 h-10 rounded bg-pink-600/10 text-pink-500 flex items-center justify-center text-lg group-hover:scale-110 transition-transform"><i class="fa-brands fa-instagram"></i></div>
+                            <div>
+                                <h4 class="text-xs uppercase font-bold tracking-wider text-zinc-400">Instagram Handle</h4>
+                                <p class="text-sm text-zinc-200 font-medium">@ak_nutrition</p>
+                            </div>
+                        </a>
+                        <a href="mailto:support@aknutrition.com" class="flex items-center gap-4 border border-zinc-900 p-4 rounded bg-zinc-950/20 hover:border-red-600 transition-all duration-300 group">
+                            <div class="w-10 h-10 rounded bg-red-600/10 text-red-500 flex items-center justify-center text-lg group-hover:scale-110 transition-transform"><i class="fa-regular fa-envelope"></i></div>
+                            <div>
+                                <h4 class="text-xs uppercase font-bold tracking-wider text-zinc-400">Official Email</h4>
+                                <p class="text-sm text-zinc-200 font-medium">support@aknutrition.com</p>
+                            </div>
+                        </a>
+                        <div class="flex items-center gap-4 border border-zinc-900 p-4 rounded bg-zinc-950/20 hover:border-zinc-700 transition-all duration-300 group">
+                            <div class="w-10 h-10 rounded bg-zinc-800/20 text-zinc-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h4 class="text-xs uppercase font-bold tracking-wider text-zinc-400">HQ Store Location</h4>
+                                <p class="text-xs text-zinc-300 font-medium leading-relaxed">Shop No. 24, Gold Gym Building, Sector 15, New Delhi, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMPLIANCE CODES -->
+                    <div class="border-t border-zinc-900 pt-6">
+                        <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-600 mb-3">// Government Authorized Licences</p>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="border border-zinc-900 bg-black px-3 py-2 rounded flex items-center gap-2 text-xs text-zinc-400 font-bold">
+                                <i class="fa-solid fa-shield-halved text-red-600 text-[10px]"></i> FSSAI Approved: <span class="text-white text-[11px] font-normal font-mono ml-1">#10023011000224</span>
+                            </div>
+                            <div class="border border-zinc-900 bg-black px-3 py-2 rounded flex items-center gap-2 text-xs text-zinc-400 font-bold">
+                                <i class="fa-solid fa-certificate text-red-600 text-[10px]"></i> GSTIN Verified: <span class="text-white text-[11px] font-normal font-mono ml-1">07AAAAA0000A1Z5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEGAL MODAL WINDOW COMPLIANCE HUBS -->
+    <div id="policy-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-zinc-950 border border-zinc-900 w-full max-w-4xl h-[80vh] rounded-xl overflow-hidden flex flex-col md:flex-row relative">
+            <button id="close-policy-modal" class="absolute top-4 right-4 text-zinc-500 hover:text-red-500 text-2xl z-10">&times;</button>
+            <div class="w-full md:w-1/4 bg-black border-b md:border-b-0 md:border-r border-zinc-900 p-6 flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible whitespace-nowrap md:whitespace-normal">
+                <h3 class="hidden md:block text-xs uppercase tracking-widest text-zinc-600 mb-4 font-bold">// Legal Hub</h3>
+                <button onclick="switchPolicyTab('privacy')" class="policy-tab-btn text-left text-xs uppercase tracking-wider py-2 px-3 rounded text-zinc-500 block">Privacy Policy</button>
+                <button onclick="switchPolicyTab('terms')" class="policy-tab-btn text-left text-xs uppercase tracking-wider py-2 px-3 rounded text-zinc-500 block">Terms & Conditions</button>
+                <button onclick="switchPolicyTab('refund')" class="policy-tab-btn text-left text-xs uppercase tracking-wider py-2 px-3 rounded text-zinc-500 block">Refund Policy</button>
+                <button onclick="switchPolicyTab('shipping')" class="policy-tab-btn text-left text-xs uppercase tracking-wider py-2 px-3 rounded text-zinc-500 block">Shipping Policy</button>
+            </div>
+            <div id="policy-content-box" class="w-full md:w-3/4 p-8 overflow-y-auto text-sm text-zinc-400 space-y-6 max-h-[60vh] md:max-h-full"></div>
+        </div>
+    </div>
+
+    <!-- CORE STRATEGIC FOOTER -->
+    <footer class="bg-black py-8 border-t border-zinc-950 text-center text-zinc-700 text-xs">
+        <p>&copy; 2026 AK NUTRITION. Stealth Mode Activated.</p>
+    </footer>
+
+    <!-- JS EXTERNAL CDN SOURCES FOR FRAME RUNS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
